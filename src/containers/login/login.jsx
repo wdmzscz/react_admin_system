@@ -1,13 +1,15 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { AmazonOutlined,ChromeOutlined  } from '@ant-design/icons';
+import {createDemo1Action,createDemo2Action} from '../../redux/actions_creators/test_action'
 import 'antd/dist/antd.css';
 import './css/login.less';
+import {connect} from 'react-redux'
 import logo from './img/logo.png';
 
 
 
-export default class Login extends React.Component{
+class Login extends React.Component{
 
     pwdvalidator=(rule,value)=>{
       console.log('asdasd',value)
@@ -109,3 +111,9 @@ export default class Login extends React.Component{
        )
     }
 }
+
+export default connect(state=>({demo:state.test}),
+{
+  demo1:createDemo1Action,
+  demo2:createDemo2Action
+})(Login)
