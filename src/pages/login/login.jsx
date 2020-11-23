@@ -9,6 +9,22 @@ import logo from './img/logo.png';
 
 export default class Login extends React.Component{
 
+    pwdvalidator=(rule,value)=>{
+      console.log('asdasd',value)
+      if(!value){
+        return  Promise.reject('Password are required')
+      }else if(value.length<4){
+        return   Promise.reject('length must at lease 4 digit')
+      }else if(value.length>12){
+        return  Promise.reject('length must at lease 4 digit')
+      }else if(!/^\w+$/.test(value)){
+        return  Promise.reject('password must have number, letter and underscore')
+      }else{
+        return Promise.resolve();
+      }
+    }
+
+
     render(){
       const layout =  {
         labelCol: {
@@ -37,7 +53,7 @@ export default class Login extends React.Component{
           <div className="login">
             <header>
                 <img src={logo} alt='logo'/>
-                <h1>Product Managment System</h1>
+                <h1>Product Management System</h1>
             </header>
             <section>
               <h1>USER LOGIN</h1>
@@ -51,6 +67,18 @@ export default class Login extends React.Component{
                       required: true,
                       message: 'Please input your username!',
                     },
+                    {
+                      min: 4,
+                      message: 'Username length must at least 4 digit!',
+                    },
+                    {
+                      max: 12,
+                      message: 'Username length must at most 12 digit!',
+                    },
+                    {
+                      pattern: /^\w+$/,
+                      message: 'Username should contain _,number,letter!',
+                    },
                   ]}
                 >
                   <Input prefix={<AmazonOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>}/>
@@ -60,10 +88,7 @@ export default class Login extends React.Component{
                   label="Password"
                   name="password"
                   rules={[
-                    {
-                      required: true,
-                      message: 'Please input your password!',
-                    },
+                    {validator:(rule,value)=>{return this.pwdvalidator(rule,value)}}
                   ]}
                 >
                   <Input.Password prefix={<ChromeOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>} />
