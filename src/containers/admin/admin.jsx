@@ -14,4 +14,4 @@ export default connect(state=>({test:state.test}),
    {
    demo1:createDemo1Action,
    demo2:createDemo2Action
-})(Admin)
+})(Admin);
