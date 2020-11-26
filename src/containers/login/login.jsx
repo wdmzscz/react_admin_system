@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
+import {reqLogin} from '../../api'
 import { AmazonOutlined,ChromeOutlined  } from '@ant-design/icons';
 import {createDemo1Action,createDemo2Action} from '../../redux/actions_creators/test_action';
 import 'antd/dist/antd.css';
@@ -45,6 +46,19 @@ class Login extends React.Component{
       
       const onFinish = (values) => {
         console.log('Success:', values);
+        const {username,password} = values;
+        reqLogin(username,password)
+        .then((result)=>{
+          console.log('result:', result.data);
+          if(result.data.status===0){
+    
+          }else{
+            message.error(result.data.msg)
+          }
+        })
+        .catch((result)=>{
+          console.log('result:', result);
+        });
       };
       
       const onFinishFailed = (errorInfo) => {
