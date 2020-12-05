@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import {reqLogin} from '../../api'
 import { AmazonOutlined,ChromeOutlined  } from '@ant-design/icons';
-import {createDemo1Action,createDemo2Action} from '../../redux/actions_creators/test_action';
+import {createSaveUserInfoAction} from '../../redux/actions_creators/login_action';
 import 'antd/dist/antd.css';
 import './css/login.less';
 import {connect} from 'react-redux';
@@ -51,7 +51,11 @@ class Login extends React.Component{
         .then((result)=>{
           console.log('result:', result.data);
           if(result.data.status===0){
-    
+            //1.service return user info and token , and send to redux
+            this.props.saveUserInfo(result.data)
+            //2.switch to admin page            
+            this.props.history.replace('/admin')
+
           }else{
             message.error(result.data.msg)
           }
@@ -126,8 +130,7 @@ class Login extends React.Component{
     }
 }
 
-export default connect(state=>({demo:state.test}),
+export default connect(state=>({}),
 {
-  demo1:createDemo1Action,
-  demo2:createDemo2Action
+  saveUserInfo:createSaveUserInfoAction
 })(Login);

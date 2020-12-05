@@ -1,8 +1,8 @@
 
 import myAxios from './myAxios';
-import qs from 'querystring';
+import {BASE_URL} from '../config/index'
 
 //login request
 export const reqLogin=(username,password)=>{ 
-    return   myAxios.post('http://localhost:3000/login',{username,password})
+    return   myAxios.post(`${BASE_URL}/login`,{username,password})
 }

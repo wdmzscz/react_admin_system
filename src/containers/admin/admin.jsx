@@ -1,8 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createDemo2Action,createDemo1Action} from '../../redux/actions_creators/test_action'
 
 class Admin extends React.Component{
+
+   componentDidMount(){
+      console.log('ad')
+   }
+
     render(){
        return(
           <div>admin</div>
@@ -10,8 +14,7 @@ class Admin extends React.Component{
     }
 }
 
-export default connect(state=>({test:state.test}),
+export default connect(state=>({userInfo:state.userInfo}),
    {
-   demo1:createDemo1Action,
-   demo2:createDemo2Action
+
 })(Admin);
