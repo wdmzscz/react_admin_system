@@ -1,11 +1,14 @@
 
-import {SAVE_USER_INFO} from '../action_types'
+import {SAVE_USER_INFO} from '../action_types';
 
+let user = JSON.parse(localStorage.getItem('user')) 
+let token = JSON.parse(localStorage.getItem('token'))
+let isLogin = user && token? true:false;
 
 let initState = {
-    user:{},
-    token:'',
-    isLogin:false
+    user:user || '',
+    token: token || '',
+    isLogin:isLogin || false
 }
 export default function test_reducer(preState=initState,action){
     const {type,data} = action;
@@ -16,7 +19,7 @@ export default function test_reducer(preState=initState,action){
             newState = {
                 user:data.user,
                 token:data.token,
-                islogin:true
+                isLogin:true
             }
             return newState
         

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import {reqLogin} from '../../api'
+import {Redirect} from 'react-router-dom'
 import { AmazonOutlined,ChromeOutlined  } from '@ant-design/icons';
 import {createSaveUserInfoAction} from '../../redux/actions_creators/login_action';
 import 'antd/dist/antd.css';
@@ -29,6 +30,8 @@ class Login extends React.Component{
 
 
     render(){
+      console.log('this props in login',this.props)
+      const {isLogin} = this.props.userInfo;
       const layout =  {
         labelCol: {
           span: 8,
@@ -54,7 +57,7 @@ class Login extends React.Component{
             //1.service return user info and token , and send to redux
             this.props.saveUserInfo(result.data)
             //2.switch to admin page            
-            this.props.history.replace('/admin')
+            this.props.history.replace('admin')
 
           }else{
             message.error(result.data.msg)
@@ -63,74 +66,80 @@ class Login extends React.Component{
         .catch((result)=>{
           console.log('result:', result);
         });
-      };
+      }; 
       
       const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
       };
 
-       return(
-          <div className="login">
-            <header>
-                <img src={logo} alt='logo'/>
-                <h1>Product Management System</h1>
-            </header>
-            <section>
-              <h1>USER LOGIN</h1>
-              <Form {...layout}
-                name="basic"
-                initialValues={{remember: true,}} onFinish={onFinish}
-                onFinishFailed={onFinishFailed}>
-                <Form.Item label="Username" name="username"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input your username!',
-                    },
-                    {
-                      min: 4,
-                      message: 'Username length must at least 4 digit!',
-                    },
-                    {
-                      max: 12,
-                      message: 'Username length must at most 12 digit!',
-                    },
-                    {
-                      pattern: /^\w+$/,
-                      message: 'Username should contain _,number,letter!',
-                    },
-                  ]}
-                >
-                  <Input prefix={<AmazonOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>}/>
-                </Form.Item>
+      if(isLogin){
+        debugger;
+        return <Redirect to='admin'/>
+      } else {
+        debugger;
+        return(
+            <div className="login">
+              <header>
+                  <img src={logo} alt='logo'/>
+                  <h1>Product Management System</h1>
+              </header>
+              <section>
+                <h1>USER LOGIN</h1>
+                <Form {...layout}
+                  name="basic"
+                  initialValues={{remember: true,}} onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}>
+                  <Form.Item label="Username" name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your username!',
+                      },
+                      {
+                        min: 4,
+                        message: 'Username length must at least 4 digit!',
+                      },
+                      {
+                        max: 12,
+                        message: 'Username length must at most 12 digit!',
+                      },
+                      {
+                        pattern: /^\w+$/,
+                        message: 'Username should contain _,number,letter!',
+                      },
+                    ]}
+                  >
+                    <Input prefix={<AmazonOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>}/>
+                  </Form.Item>
 
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {validator:(rule,value)=>{return this.pwdvalidator(rule,value)}}
-                  ]}
-                >
-                  <Input.Password prefix={<ChromeOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>} />
-                </Form.Item>
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {validator:(rule,value)=>{return this.pwdvalidator(rule,value)}}
+                    ]}
+                  >
+                    <Input.Password prefix={<ChromeOutlined type='amazon' style={{color:'rgba(0,0,0,.25)'}}/>} />
+                  </Form.Item>
 
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
+                  <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                    <Checkbox>Remember me</Checkbox>
+                  </Form.Item>
 
-                <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit">
-                    Submit
-                  </Button>
-                </Form.Item>
-              </Form>
-            </section>
-          </div>
-       )
+                  <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </section>
+            </div>
+        )
+      }
     }
 }
 
-export default connect(state=>({}),
+export default connect(state=>({userInfo:state.userInfo}),
 {
   saveUserInfo:createSaveUserInfoAction
 })(Login);
