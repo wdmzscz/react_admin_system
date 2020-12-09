@@ -1,11 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action'
 
 class Admin extends React.Component{
 
    componentDidMount(){
       console.log('ad')
+   }
+
+   logOut=()=>{
+      this.props.deleteUserInfo();
    }
 
    // render method need to 'return', you should better use redirect
@@ -16,7 +21,10 @@ class Admin extends React.Component{
          return <Redirect to='/login'/>
        }else{
          return(
-            <div>admin {user}</div>
+            <div>
+               <div>admin {user} </div>
+               <button onClick={this.logOut}>LogOut</button>      
+            </div>
          )
        }
     }
@@ -24,5 +32,5 @@ class Admin extends React.Component{
 
 export default connect(state=>({userInfo:state.userInfo}),
    {
-
+      deleteUserInfo:CreateDeleteUserInfoAction
 })(Admin);

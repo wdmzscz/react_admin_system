@@ -1,5 +1,5 @@
 
-import {SAVE_USER_INFO} from '../action_types';
+import {SAVE_USER_INFO,DELETE_USER_INFO} from '../action_types';
 
 let user = JSON.parse(localStorage.getItem('user')) 
 let token = JSON.parse(localStorage.getItem('token'))
@@ -22,7 +22,13 @@ export default function test_reducer(preState=initState,action){
                 isLogin:true
             }
             return newState
-        
+        case DELETE_USER_INFO:
+            newState = {
+                user:'',
+                token:'',
+                isLogin:false
+            }
+            return newState        
         default:
            return preState;
     }
