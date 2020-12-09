@@ -11,7 +11,6 @@ const instance = axios.create({
 instance.interceptors.request.use( (config)=> {
     // Do something before request is sent
     NPROGRESS.start();
-    console.log('config',config)
     const {method,data} = config;
     if(method.toLowerCase() === 'post' && typeof data === 'object'){
       config.data = qs.stringify(data)

@@ -6,7 +6,6 @@ import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_act
 class Admin extends React.Component{
 
    componentDidMount(){
-      console.log('ad')
    }
 
    logOut=()=>{

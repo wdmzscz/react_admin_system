@@ -14,7 +14,6 @@ import logo from './img/logo.png';
 class Login extends React.Component{
 
     pwdvalidator=(rule,value)=>{
-      console.log('asdasd',value)
       if(!value){
         return  Promise.reject('Password are required')
       }else if(value.length<4){
@@ -30,7 +29,6 @@ class Login extends React.Component{
 
 
     render(){
-      console.log('this props in login',this.props)
       const {isLogin} = this.props.userInfo;
       const layout =  {
         labelCol: {
