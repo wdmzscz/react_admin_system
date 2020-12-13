@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NPROGRESS from 'nprogress';
 import qs from "querystring";
+import store from  '../redux/store'
 import 'nprogress/nprogress.css'
 
 const instance = axios.create({
@@ -11,6 +12,11 @@ const instance = axios.create({
 instance.interceptors.request.use( (config)=> {
     // Do something before request is sent
     NPROGRESS.start();
+    //using getState method to fetch token from storejs 
+    const {token} = store.getState().userInfo;
+    if(token){
+      config.headers.Authorization = token;
+    }
     const {method,data} = config;
     if(method.toLowerCase() === 'post' && typeof data === 'object'){
       config.data = qs.stringify(data)

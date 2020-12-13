@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {reqCategoryList} from '../../api/index'
 import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action'
 
 class Admin extends React.Component{
@@ -10,6 +11,11 @@ class Admin extends React.Component{
 
    logOut=()=>{
       this.props.deleteUserInfo();
+   }
+
+   demo=async()=>{
+      let result = await reqCategoryList()
+      console.log('result',result);
    }
 
    // render method need to 'return', you should better use redirect
@@ -22,7 +28,8 @@ class Admin extends React.Component{
          return(
             <div>
                <div>admin {user} </div>
-               <button onClick={this.logOut}>LogOut</button>      
+               <button onClick={this.logOut}>LogOut</button> 
+               <button onClick={this.demo}>list</button>      
             </div>
          )
        }
