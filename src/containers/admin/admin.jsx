@@ -1,10 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {reqCategoryList} from '../../api/index'
-import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action'
+import {reqCategoryList} from '../../api/index';
+import { Layout } from 'antd';
+import Header from './header/header'
+import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action';
+import './css/admin.less';
 
+
+const { Footer, Sider, Content } = Layout;
 class Admin extends React.Component{
+   
 
    componentDidMount(){
    }
@@ -26,11 +32,14 @@ class Admin extends React.Component{
          return <Redirect to='/login'/>
        }else{
          return(
-            <div>
-               <div>admin {user} </div>
-               <button onClick={this.logOut}>LogOut</button> 
-               <button onClick={this.demo}>list</button>      
-            </div>
+            <Layout className='admin'>
+               <Sider className='sider'>Sider</Sider>
+               <Layout>
+                  <Header>Header</Header>
+                  <Content className='content'>Content</Content>
+                  <Footer className='footer'>Recommend using chrome browser for better experience</Footer>
+               </Layout>
+            </Layout>   
          )
        }
     }
