@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../css/header.less';
-import {FullscreenOutlined} from '@ant-design/icons';
+import {FullscreenOutlined,FullscreenExitOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
 import screenfull from 'screenfull'
 
@@ -15,6 +15,7 @@ export default class Header extends Component{
    }
 
    componentDidMount(){
+      //set full screen size
       screenfull.on('change',()=>{
          let isFull = !this.state.isFull;
          this.setState({isFull})
