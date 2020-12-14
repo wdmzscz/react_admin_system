@@ -3,8 +3,13 @@ import '../css/header.less';
 import {FullscreenOutlined,FullscreenExitOutlined} from '@ant-design/icons';
 import {Button} from 'antd';
 import screenfull from 'screenfull'
+import { connect } from 'react-redux';
 
-export default class Header extends Component{
+@connect(state=>(
+   {userInfo:state.userInfo
+   }),{})
+
+class Header extends Component{
 
    state={
       isFull:false
@@ -23,6 +28,7 @@ export default class Header extends Component{
    }
 
     render(){
+       let {user} = this.props.userInfo
        return(
          <header className='header'>
             <div className='header-top'>
@@ -31,7 +37,7 @@ export default class Header extends Component{
                   ?<FullscreenOutlined />
                   :<FullscreenExitOutlined />}
                </Button>
-               <span className='userName'>welcome</span>
+               <span className='userName'>welcome,{user}</span>
                <Button type='link'>Log out</Button>
             </div>
             <div className='header-bottom'>
@@ -46,3 +52,5 @@ export default class Header extends Component{
        )
     }
 }
+
+export default Header
