@@ -1,8 +1,10 @@
 import axios from 'axios';
 import NPROGRESS from 'nprogress';
 import qs from "querystring";
-import store from  '../redux/store'
+import store from  '../redux/store';
+import {CreateDeleteUserInfoAction} from '../redux/actions_creators/login_action';
 import 'nprogress/nprogress.css'
+import { message } from 'antd';
 
 const instance = axios.create({
     timeout: 10000,
@@ -37,6 +39,12 @@ instance.interceptors.response.use( (response) => {
     NPROGRESS.done()
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if(error.response.status===401){
+      message.error('Authentication failed, please re-login.',1);
+      store.dispatch(CreateDeleteUserInfoAction);
+    }else{
+      message.error(error.message,1);
+    }
     return Promise.reject(error);
   })
 
