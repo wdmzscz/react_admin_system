@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import '../css/header.less';
-import {FullscreenOutlined,FullscreenExitOutlined} from '@ant-design/icons';
-import {Button} from 'antd';
-import screenfull from 'screenfull'
+import {FullscreenOutlined,FullscreenExitOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import {Button, Modal} from 'antd';
+import {CreateDeleteUserInfoAction} from '../../../redux/actions_creators/login_action';
+import screenfull from 'screenfull';
 import { connect } from 'react-redux';
 
+const { confirm } = Modal;
+
 @connect(state=>(
-   {userInfo:state.userInfo
-   }),{})
+   {userInfo:state.userInfo,
+   }),{
+      deleteUserInfo:CreateDeleteUserInfoAction
+   })
 
 class Header extends Component{
 
@@ -17,6 +22,22 @@ class Header extends Component{
 
    fullScreen=()=>{
       screenfull.toggle()
+   }
+
+   logout=()=>{ 
+      let {deleteUserInfo} = this.props
+      confirm({
+         title: 'Log Out',
+         icon: <ExclamationCircleOutlined />,
+         content: 'Are you sure to log out?',
+         onOk() {
+           deleteUserInfo();
+           console.log('OK');
+         },
+         onCancel() {
+           console.log('Cancel');
+         },
+      });
    }
 
    componentDidMount(){
@@ -38,7 +59,7 @@ class Header extends Component{
                   :<FullscreenExitOutlined />}
                </Button>
                <span className='userName'>welcome,{user}</span>
-               <Button type='link'>Log out</Button>
+               <Button type='link' onClick={this.logout}>Log out</Button>
             </div>
             <div className='header-bottom'>
                <div className='header-bottom-left'>
