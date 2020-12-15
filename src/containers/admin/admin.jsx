@@ -4,7 +4,8 @@ import {Redirect} from 'react-router-dom';
 import {Route, Switch} from 'react-router-dom';
 import {reqCategoryList} from '../../api/index';
 import { Layout } from 'antd';
-import Header from './header/header'
+import Header from './header/header';
+import Nav_left from './nav/nav_left';
 import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action';
 import './css/admin.less';
 import Home from '../../components/home/home';
@@ -43,7 +44,9 @@ class Admin extends React.Component{
        }else{
          return(
             <Layout className='admin'>
-               <Sider className='sider'>Sider</Sider>
+               <Sider className='sider'>
+                  <Nav_left />
+               </Sider>
                <Layout>
                   <Header>Header</Header>
                   <Content className='content'>
