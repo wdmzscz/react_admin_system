@@ -2,18 +2,21 @@ import React, {Component} from 'react';
 import { Menu } from 'antd';
 import logo from '../../../img/logo.png';
 import '../nav/nav_left.less';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { AppstoreOutlined, HomeOutlined,UnorderedListOutlined
 ,ToolOutlined } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
-export default class Nav_left extends Component{
+@withRouter
+class Nav_left extends Component{
     handleClick = e => {
         console.log('click ', e);
-      };
+      }; 
     
     render() {
+
+    let {location} = this.props;
     return (
         <div>
             <header className='nav_header'>
@@ -22,8 +25,8 @@ export default class Nav_left extends Component{
             </header>
             <Menu
             onClick={this.handleClick}
-            defaultSelectedKeys={'home'}
-            defaultOpenKeys={['1']}
+            defaultSelectedKeys={location.pathname.split('/').reverse()[0]}
+            defaultOpenKeys={location.pathname.split('/').slice(2)}
             mode="inline"
             theme="dark"
             >
@@ -51,3 +54,5 @@ export default class Nav_left extends Component{
     );
     }
 }
+
+export default Nav_left;

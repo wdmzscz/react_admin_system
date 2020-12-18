@@ -71,10 +71,8 @@ class Login extends React.Component{
       };
 
       if(isLogin){
-        debugger;
-        return <Redirect to='admin'/>
+        return <Redirect to='/admin/home'/>
       } else {
-        debugger;
         return(
             <div className="login">
               <header>
