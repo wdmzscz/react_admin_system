@@ -58,7 +58,8 @@ class Header extends Component{
    }
 
     render(){
-       let {user} = this.props.userInfo
+       let {user} = this.props.userInfo;
+       let {location} = this.props;
        return(
          <header className='header'>
             <div className='header-top'>
@@ -72,7 +73,7 @@ class Header extends Component{
             </div>
             <div className='header-bottom'>
                <div className='header-bottom-left'>
-                  Bar
+                  {location.pathname}
                </div>
                <div className='header-bottom-right'>
                   {this.state.date}
