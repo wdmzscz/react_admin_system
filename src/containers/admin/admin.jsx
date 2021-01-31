@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import {reqCategoryList} from '../../api/index';
 import { Layout } from 'antd';
 import Header from './header/header';
-import Nav_left from './nav/nav_left';
+import NavLeft from './nav/nav_left';
 import {CreateDeleteUserInfoAction} from '../../redux/actions_creators/login_action';
 import './css/admin.less';
 import Home from '../../components/home/home';
@@ -37,7 +37,7 @@ class Admin extends React.Component{
 
    // render method need to 'return', you should better use redirect
     render(){
-       const {user, isLogin} = this.props.userInfo
+       const { isLogin} = this.props.userInfo
        if(!isLogin){
          //this.props.history.replace('/login')
          return <Redirect to='/login'/>
@@ -45,7 +45,7 @@ class Admin extends React.Component{
          return(
             <Layout className='admin'>
                <Sider className='sider'>
-                  <Nav_left />
+                  <NavLeft/>
                </Sider>
                <Layout>
                   <Header>Header</Header>

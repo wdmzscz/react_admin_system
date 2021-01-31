@@ -1,26 +1,47 @@
 import React, {Component} from 'react';
 import { Menu } from 'antd';
 import logo from '../../../img/logo.png';
+import MenuList from '../../../config/menuConfig';
 import '../nav/nav_left.less';
 import {Link, withRouter} from 'react-router-dom'
-import { AppstoreOutlined, HomeOutlined,UnorderedListOutlined
-,ToolOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, HomeOutlined
+ } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
 @withRouter
-class Nav_left extends Component{
+class NavLeft extends Component{
     handleClick = e => {
         console.log('click ', e);
       }; 
+
+    createMenu = (obj)=>{
+        return obj.map((item)=>{
+            if(!item.children){
+                return (
+                    <Menu.Item key={item.key}>
+                        <Link to={item.path}>
+                        <HomeOutlined />
+                        <span>{item.title}</span>
+                        </Link>
+                    </Menu.Item>
+                )
+            }else{
+               return( <SubMenu key={item.key} icon={<AppstoreOutlined />} title={item.title}>                
+                {this.createMenu(item.children)}
+                </SubMenu>)
+            }
+        })
+    }
     
     render() {
 
     let {location} = this.props;
+    console.log('list',MenuList)
     return (
         <div>
             <header className='nav_header'>
-                <img src={logo}/>
+                <img src={logo} alt='nono'/>
                 <h1>MANAGEMENT SYSTEM</h1>  
             </header>
             <Menu
@@ -30,29 +51,11 @@ class Nav_left extends Component{
             mode="inline"
             theme="dark"
             >
-            <Menu.Item key="home">
-                <Link to='/admin/home'>
-                <HomeOutlined />
-                <span>Home</span>
-                </Link>
-            </Menu.Item>
-
-            <SubMenu key="prod_about" icon={<AppstoreOutlined />} title="Product Category">               
-                <Menu.Item key="category">
-                    <Link to='/admin/prod/category'>
-                        <UnorderedListOutlined />Category Management
-                    </Link>
-                </Menu.Item>
-                <Menu.Item key="product">
-                    <Link to='/admin/prod/product'>
-                        <ToolOutlined />Product Management
-                    </Link>
-                </Menu.Item>
-            </SubMenu>
+            {this.createMenu(MenuList)}
             </Menu>
         </div>
     );
     }
 }
 
-export default Nav_left;
+export default NavLeft;
