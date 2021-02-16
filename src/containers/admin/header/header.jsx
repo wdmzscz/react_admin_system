@@ -52,7 +52,6 @@ class Header extends Component{
 
    getTitle=()=>{
       let pathKey=this.props.location.pathname.split('/').reverse()[0];
-      console.log('title1',this.props.location.pathname.split('/').reverse()[0])
       let title ='';
       menuList.forEach((item)=>{
          if(item.children instanceof Array){
@@ -64,7 +63,6 @@ class Header extends Component{
             if(pathKey === item.key) title = item.title;
          }
       })
-      console.log('title',title)
       this.setState({title:title})
    }
 
@@ -78,7 +76,6 @@ class Header extends Component{
         this.setState({date:moment().format('MMMM Do YYYY, h:mm:ss a')})
       },1000)
       this.getTitle()
-      console.log('this.props',this.props)
    }
 
    componentWillUnmount(){
