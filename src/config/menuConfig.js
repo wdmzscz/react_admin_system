@@ -1,25 +1,25 @@
 const MenuList = [
     {
       title: 'Home', 
-      key: '/home', 
+      key: 'home', 
       icon: 'home', 
       isPublic: true, 
       path:'/admin/home'
     },
     {
       title: 'Product',
-      key: '/products',
+      key: 'products',
       icon: 'appstore',
       children: [ // 子菜单列表
         {
           title: 'Category',
-          key: '/category',
+          key: 'category',
           icon: 'bars',
           path:'/admin/products/category'
         },
         {
           title: 'Product Managment',
-          key: '/product',
+          key: 'product',
           icon: 'tool',
           path:'/admin/products/product'
         },
@@ -28,37 +28,37 @@ const MenuList = [
   
     {
       title: 'User',
-      key: '/user',
+      key: 'user',
       icon: 'user',
       path:'/admin/user'
     },
     {
       title: 'Role',
-      key: '/role',
+      key: 'role',
       icon: 'safety',
       path:'/admin/role'
     },
   
     {
       title: 'Charts',
-      key: '/charts',
+      key: 'charts',
       icon: 'area-chart',
       children: [
         {
           title: 'Bar',
-          key: '/charts/bar',
+          key: 'charts/bar',
           icon: 'bar-chart',
           path:'/admin/charts/bar'
         },
         {
           title: 'Line',
-          key: '/charts/line',
+          key: 'charts/line',
           icon: 'line-chart',
           path:'/admin/charts/line'
         },
         {
           title: 'Pie',
-          key: '/charts/pie',
+          key: 'charts/pie',
           icon: 'pie-chart',
           path:'/admin/charts/pie'
         },
@@ -67,7 +67,7 @@ const MenuList = [
   
     {
       title: 'Order',
-      key: '/order',
+      key: 'order',
       icon: 'windows',
       path:'/admin/order'
     }

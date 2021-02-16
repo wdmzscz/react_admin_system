@@ -12,7 +12,9 @@ import { connect } from 'react-redux';
 const { confirm } = Modal;
 
 @connect(state=>(
-   {userInfo:state.userInfo,
+   {
+      userInfo:state.userInfo,
+      title:state.saveTitle,
    }),{
       deleteUserInfo:CreateDeleteUserInfoAction
    })
@@ -20,9 +22,12 @@ const { confirm } = Modal;
 
 class Header extends Component{
 
+   myInterval
+
    state={
       isFull:false,
-      date:moment().format('MMMM Do YYYY, h:mm:ss a')
+      date:moment().format('MMMM Do YYYY, h:mm:ss a'),
+      title:''
    }
 
    fullScreen=()=>{
@@ -47,7 +52,7 @@ class Header extends Component{
 
    getTitle=()=>{
       let pathKey=this.props.location.pathname.split('/').reverse()[0];
-      console.log('title',this.props.location.pathname.split('/').reverse()[0])
+      console.log('title1',this.props.location.pathname.split('/').reverse()[0])
       let title ='';
       menuList.forEach((item)=>{
          if(item.children instanceof Array){
@@ -60,7 +65,7 @@ class Header extends Component{
          }
       })
       console.log('title',title)
-      return title
+      this.setState({title:title})
    }
 
    componentDidMount(){
@@ -69,15 +74,19 @@ class Header extends Component{
          let isFull = !this.state.isFull;
          this.setState({isFull})
       })
-      setInterval(()=>{
+      this.myInterval = setInterval(()=>{
         this.setState({date:moment().format('MMMM Do YYYY, h:mm:ss a')})
       },1000)
-
+      this.getTitle()
       console.log('this.props',this.props)
    }
 
+   componentWillUnmount(){
+      clearInterval(this.myInterval)
+   }
+
     render(){
-       let {user} = this.props.userInfo;
+       let {user} = this.props.userInfo; 
        let {location} = this.props;
        return(
          <header className='header'>
@@ -92,7 +101,7 @@ class Header extends Component{
             </div>
             <div className='header-bottom'>
                <div className='header-bottom-left'>
-                  {this.getTitle()}
+                  {this.props.title || this.state.title}
                </div>
                <div className='header-bottom-right'>
                   {this.state.date}

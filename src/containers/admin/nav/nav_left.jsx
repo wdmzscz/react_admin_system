@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Menu } from 'antd';
+import {connect} from 'react-redux';
+import {createSaveTitleAction} from '../../../redux/actions_creators/menu_action.js';
 import logo from '../../../img/logo.png';
 import MenuList from '../../../config/menuConfig';
 import '../nav/nav_left.less';
@@ -9,6 +11,12 @@ import { AppstoreOutlined, HomeOutlined
 
 const { SubMenu } = Menu;
 
+@connect(
+    state=>({}),
+    {
+        saveTitle:createSaveTitleAction
+    }
+)
 @withRouter
 class NavLeft extends Component{
     handleClick = e => {
@@ -19,7 +27,7 @@ class NavLeft extends Component{
         return obj.map((item)=>{
             if(!item.children){
                 return (
-                    <Menu.Item key={item.key}>
+                    <Menu.Item key={item.key} onClick={()=>{this.props.saveTitle(item.title)}}>
                         <Link to={item.path}>
                         <HomeOutlined />
                         <span>{item.title}</span>
