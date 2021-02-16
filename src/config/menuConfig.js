@@ -15,13 +15,13 @@ const MenuList = [
           title: 'Category',
           key: '/category',
           icon: 'bars',
-          path:'admin/products/category'
+          path:'/admin/products/category'
         },
         {
           title: 'Product Managment',
           key: '/product',
           icon: 'tool',
-          path:'admin/products/product'
+          path:'/admin/products/product'
         },
       ]
     },
@@ -48,19 +48,19 @@ const MenuList = [
           title: 'Bar',
           key: '/charts/bar',
           icon: 'bar-chart',
-          path:'admin/charts/bar'
+          path:'/admin/charts/bar'
         },
         {
           title: 'Line',
           key: '/charts/line',
           icon: 'line-chart',
-          path:'admin/charts/line'
+          path:'/admin/charts/line'
         },
         {
           title: 'Pie',
           key: '/charts/pie',
           icon: 'pie-chart',
-          path:'admin/charts/pie'
+          path:'/admin/charts/pie'
         },
       ]
     },

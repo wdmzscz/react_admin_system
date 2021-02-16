@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import menuList from '../../../config/menuConfig';
 import '../css/header.less';
 import {FullscreenOutlined,FullscreenExitOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import {Button, Modal} from 'antd';
@@ -44,6 +45,24 @@ class Header extends Component{
       });
    }
 
+   getTitle=()=>{
+      let pathKey=this.props.location.pathname.split('/').reverse()[0];
+      console.log('title',this.props.location.pathname.split('/').reverse()[0])
+      let title ='';
+      menuList.forEach((item)=>{
+         if(item.children instanceof Array){
+            let temp = item.children.find((citem)=>{
+               return citem.key===pathKey;
+            })
+            if(temp) title = temp.title;
+         }else{
+            if(pathKey === item.key) title = item.title;
+         }
+      })
+      console.log('title',title)
+      return title
+   }
+
    componentDidMount(){
       //set full screen size
       screenfull.on('change',()=>{
@@ -73,7 +92,7 @@ class Header extends Component{
             </div>
             <div className='header-bottom'>
                <div className='header-bottom-left'>
-                  {location.pathname}
+                  {this.getTitle()}
                </div>
                <div className='header-bottom-right'>
                   {this.state.date}

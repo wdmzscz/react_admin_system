@@ -52,13 +52,13 @@ class Admin extends React.Component{
                   <Content className='content'>
                   <Switch>
                      <Route path='/admin/home' component={Home}/>
-                        <Route path='/admin/prod/category' component={Category}/>
-                        <Route path='/admin/prod/product' component={Product}/>
+                        <Route path='/admin/products/category' component={Category}/>
+                        <Route path='/admin/products/product' component={Product}/>
                      <Route path='/admin/user' component={UserManagement}/>
                      <Route path='/admin/role' component={Role}/>
-                     <Route path='/admin/char/pie' component={Pie}/>
-                     <Route path='/admin/char/line' component={Line}/>
-                     <Route path='/admin/char/bar' component={Bar}/>
+                     <Route path='/admin/charts/pie' component={Pie}/>
+                     <Route path='/admin/charts/line' component={Line}/>
+                     <Route path='/admin/charts/bar' component={Bar}/>
                      <Redirect to='/admin/home'></Redirect>
                   </Switch>
                   </Content>
