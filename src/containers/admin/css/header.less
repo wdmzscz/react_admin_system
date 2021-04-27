@@ -1,47 +1,45 @@
-header{
-    height: 80px;
-    background-color: white;
-    .header-top{
-        height: 40px;
-        border-bottom:1px solid #1DA57A;
-        text-align: right;
-        .userName{
-            margin: 0 0 0px 20px;
-        }
-        line-height: 40px;
-    }
-    .header-bottom{
-        display: flex;
-        text-align: right;
-        background-color: white;
-        height: 40px;
-        border-top:1px solid #1DA57A;
-        .header-bottom-left{
-            width: 25%;
-            height: 20px; 
-            line-height: 40px;
-            &::after{
-                position: absolute;
-                top:72px;
-                left: 50%;
-                transform: translateX(-50%);
-                content:'';
-                border-top:20px solid white;
-                border-left:20px solid transparent;
-                border-right:20px solid transparent;
-                border-bottom:20px solid transparent;
-                background-repeat: no-repeat;
-                
-            }
-        }
-        .header-bottom-right{
-            width: 75%;
-            img{
-                width: 30px;
-                height: 20px; 
-                margin: 0 8px;
-            }
-        }
-    }
-
+header {
+	height: 80px;
+	background-color: white;
+	.header-top {
+		height: 40px;
+		border-bottom: 1px solid #1da57a;
+		text-align: right;
+		.userName {
+			margin: 0 0 0px 20px;
+		}
+		line-height: 40px;
+	}
+	.header-bottom {
+		display: flex;
+		text-align: right;
+		background-color: white;
+		height: 40px;
+		border-top: 1px solid #1da57a;
+		.header-bottom-left {
+			width: 25%;
+			height: 20px;
+			line-height: 40px;
+			&::after {
+				position: absolute;
+				top: 72px;
+				left: 50%;
+				transform: translateX(-50%);
+				content: "";
+				border-top: 20px solid white;
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-bottom: 20px solid transparent;
+				background-repeat: no-repeat;
+			}
+		}
+		.header-bottom-right {
+			width: 75%;
+			img {
+				width: 30px;
+				height: 20px;
+				margin: 0 8px;
+			}
+		}
+	}
 }
