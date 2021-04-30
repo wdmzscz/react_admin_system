@@ -27,7 +27,6 @@ class Admin extends React.Component {
 
 	demo = async () => {
 		let result = await reqCategoryList();
-		console.log("result", result);
 	};
 
 	// render method need to 'return', you should better use redirect

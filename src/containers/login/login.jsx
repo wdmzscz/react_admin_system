@@ -42,11 +42,9 @@ class Login extends React.Component {
 		};
 
 		const onFinish = (values) => {
-			console.log("Success:", values);
 			const { username, password } = values;
 			reqLogin(username, password)
 				.then((result) => {
-					console.log("result:", result.data);
 					if (result.data.status === 0) {
 						//1.service return user info and token , and send to redux
 						this.props.saveUserInfo(result.data);

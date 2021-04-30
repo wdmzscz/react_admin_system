@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, message, Table, Modal, Form, Input } from "antd";
-import { reqCategoryList } from "../../api";
+import { reqCategoryList, addCategoryList } from "../../api";
 import { PAGE_SIZE } from "../../config";
 
 export default class Category extends Component {
@@ -26,9 +26,33 @@ export default class Category extends Component {
 		});
 	};
 
+	toAdd = async (values) => {
+		let result = await addCategoryList(values);
+		const { status, data } = result.data;
+
+		if (status === 0) {
+			message.success("So Fucking awesome!!!!!");
+			let Category = [...this.state.Category];
+			Category.unshift(data);
+			this.setState({ Category });
+			this.setState({ isModalVisible: false });
+			if (this.formRef.current) this.formRef.current.resetFields();
+		}
+		if (status === 1) {
+			message.error("fail");
+		}
+	};
+
 	handleOk = () => {
-		this.setState({ isModalVisible: false });
-		if (this.formRef.current) this.formRef.current.resetFields();
+		this.formRef.current
+			.validateFields()
+			.then((values) => {
+				this.toAdd(values);
+			})
+			.catch((error) => {
+				message.warning("wrong!!!", 2);
+				return;
+			});
 	};
 
 	handleCancel = () => {
@@ -38,9 +62,8 @@ export default class Category extends Component {
 	getCategoryList = async () => {
 		let result = await reqCategoryList();
 		let { status, msg, data } = result;
-		console.log("data", result);
 		if (status === 200) {
-			this.setState({ Category: data.data });
+			this.setState({ Category: data.data.reverse() });
 		} else {
 			message.error(msg, 1);
 		}
@@ -102,7 +125,7 @@ export default class Category extends Component {
 					<div>
 						<Form ref={this.formRef} name="basic">
 							<Form.Item
-								name={operType}
+								name="categoryName"
 								rules={[
 									{
 										required: true,
